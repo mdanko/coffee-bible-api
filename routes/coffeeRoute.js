@@ -1,12 +1,15 @@
-import { getCoffee, getCoffeeById } from "../controllers/coffeeController.js";
+import {
+  getCoffee,
+  getCoffeeById,
+  createCoffee,
+  updateCoffee,
+} from "../controllers/coffeeController.js";
 import express from "express";
 
 const router = express.Router();
 
-// express router method to create route for getting all users
-router.route("/").get(getCoffee);
+router.route("/").get(getCoffee).post(createCoffee);
 
-// // express router method to create route for getting users by id
-router.route("/:id").get(getCoffeeById);
+router.route("/:id").get(getCoffeeById).put(updateCoffee);
 
 export default router;

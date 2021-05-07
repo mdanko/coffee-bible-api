@@ -1,7 +1,5 @@
 import Coffee from "../models/coffeeModel.js";
-// import asyncHandler from 'express-async-handler'
 
-//getUsers function to get all users
 export const getCoffee = async (req, res, next) => {
   try {
     const coffee = await Coffee.find({});
@@ -12,6 +10,7 @@ export const getCoffee = async (req, res, next) => {
     });
   }
 };
+
 export const getCoffeeById = async (req, res, next) => {
   try {
     const coffee = await Coffee.findById(req.params.id);
@@ -24,16 +23,34 @@ export const getCoffeeById = async (req, res, next) => {
   }
 };
 
-// //getUserById function to retrieve user by id
-// export const getUserById = asyncHandler(async (req, res) => {
-//   const user = await User.findById(req.params.id);
+export const createCoffee = async (req, res, next) => {
+  try {
+    const coffee = await Coffee.create(req.params);
+    console.log(coffee);
+  } catch (err) {
+    return res.status(400).json({
+      message: "Coffee not created",
+      error: err,
+    });
+  }
+};
 
-//   //if user id match param id send user else throw error
-//   if (user) {
-//     res.json(user);
-//   } else {
-//     res.status(404).json({ message: "User not found" });
-//     res.status(404);
-//     throw new Error("User not found");
-//   }
-// });
+export const updateCoffee = async (req, res, next) => {
+  try {
+    console.log(req.body);
+    const coffee = await Coffee.findOneAndUpdate(
+      { _id: req.params.id },
+      req.body,
+      {
+        new: true,
+      }
+    );
+
+    res.json(coffee);
+  } catch (err) {
+    return res.status(400).json({
+      message: "Coffee not updated",
+      error: err,
+    });
+  }
+};

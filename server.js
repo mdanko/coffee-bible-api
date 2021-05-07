@@ -14,6 +14,8 @@ const app = express();
 
 //Creating API for coffee
 app.use(cors());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 app.use("/api/coffee", coffeeRoutes);
 
 const PORT = process.env.PORT || 5000;
