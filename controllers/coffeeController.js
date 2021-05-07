@@ -25,8 +25,9 @@ export const getCoffeeById = async (req, res, next) => {
 
 export const createCoffee = async (req, res, next) => {
   try {
-    const coffee = await Coffee.create(req.params);
+    const coffee = await Coffee.create(req.body);
     console.log(coffee);
+    res.json(coffee);
   } catch (err) {
     return res.status(400).json({
       message: "Coffee not created",
